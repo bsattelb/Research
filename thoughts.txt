@@ -1,0 +1,12 @@
+Radial basis functions
+    Standard choice is a Gaussian
+    First trains centers and sdevs using k-means
+    Then trains weights using backpropogation
+    Can use backpropogation to train centers and sdevs
+    Why use Gaussian? Nonlinearity is an issue, but could use linear approx
+        f(x) = -s*(x - c) + h, x-c > 0 and s*(x - c) + h, x-c < 0
+        which is
+        f(x) = -s*x + (h + s*c), x-c > 0 and s*x + (h + s*c), x - c <0
+        
+Universal approximator theorem
+    d+1 dimensions can represent "anything" in d dimensions for feedforward NN
