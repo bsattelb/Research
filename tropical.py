@@ -58,7 +58,7 @@ def displayTropPoly(coeffs):
         if term[0] == 0:
             doX1 = False
         if term[1] == 0:
-            doX2 == False
+            doX2 = False
 
         s += '('
 
@@ -72,6 +72,8 @@ def displayTropPoly(coeffs):
             s += ' \odot '
         if doX2:
             s+= 'x_2^{{\odot {term[1]}}}'.format(term=term)
+        if not doConstant and not doX1 and not doX2:
+            s += '0'
 
         s += ')'
     return s
