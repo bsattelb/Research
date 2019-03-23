@@ -5,8 +5,10 @@ import matplotlib
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
+import time
 
-def getTropCoeffs(A1, b1, A2, b2):
+
+def getTropCoeffs(A1, b1, A2, b2, doTime=False):
     A1plus = np.maximum(A1, 0)
     A2plus = np.maximum(A2, 0)
 
@@ -22,6 +24,11 @@ def getTropCoeffs(A1, b1, A2, b2):
 
     Gbias = np.matmul(A2plus, A1minus)
     Gbias = np.append(Gbias, 0)
+    
+    if doTime:
+        start = time.time()
+        count = 0
+        length = 2**np.size(A1, axis=0)
 
     for i in itertools.product([True, False], repeat=np.size(A1, axis=0)):
         B = np.zeros(A1.shape)
@@ -37,6 +44,11 @@ def getTropCoeffs(A1, b1, A2, b2):
         Gterm = np.matmul(A2minus, B) + Gbias
         Fterms.add(tuple(Fterm[0]))
         Gterms.add(tuple(Gterm[0]))
+        
+        if doTime:
+            count = count + 1
+            if count % 10000 == 0:
+                print(str(100*count/length) + '% ' + str((time.time()-start)/(count/length)) + ' s remain')
 
     return Fterms, Gterms
 

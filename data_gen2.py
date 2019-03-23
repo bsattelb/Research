@@ -7,21 +7,25 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
-def circles(n):
+def circles(n, r1=0.5):
     data1 = np.zeros((n, 3))
     data2 = np.zeros((n, 3))
     i = 0
+    
+    r1sqr = r1**2
+    r2sqr = 2*r1sqr
+    r3sqr = 3*r1sqr
 
     while i < n:
         sample = 2*np.random.uniform(size=(1,2)) - 1
-        if np.sum(np.square(sample)) < (1/3)**2:
+        if np.sum(np.square(sample)) < r1sqr:
             data1[i, :] = np.append(sample, [1])
             i += 1
 
     i = 0
     while i < n:
         sample = 2*np.random.uniform(size=(1,2)) - 1
-        if (2/3)**2 < np.sum(np.square(sample)) < 1:
+        if r2sqr < np.sum(np.square(sample)) < r3sqr:
             data2[i, :] = np.append(sample, [-1])
             i += 1
 
